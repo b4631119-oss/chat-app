@@ -1,12 +1,15 @@
-// app/page.tsx
+"use client";
+import { useAuth } from "../context/AuthContext";
+import Login from "../components/login"; 
+import ChatInterface from "../components/ChatInterface";
+import ProfileSetup from "../components/ProfileSetup"; 
 
-export default function page() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <h1 className="text-4xl font-bold">Привет! Это мой чат-апп</h1>
-      <p className="mt-4 text-lg">Скоро здесь будут сообщения!</p>
-    </main>
-  );
+export default function Home() {
+  const { user, profileExists, loading } = useAuth();
+
+  if (loading) return <div className="flex h-screen items-center justify-center">Загрузка...</div>;
+  
+  if (!user) return <Login />; 
+  if (!profileExists) return <ProfileSetup />; 
+  return <ChatInterface />;
 }
-
-
