@@ -18,10 +18,9 @@ export default function MessageItem({ message, hideAvatar }: MessageItemProps) {
     <div className={`flex w-full items-end gap-2 ${isMine ? 'justify-end' : 'justify-start'}`}>
       {!isMine && (
         <div className="shrink-0 w-8 h-8 relative">
-          {/* Если это не мое сообщение и не повтор — показываем аватарку */}
           {!hideAvatar && (
             <Image 
-              src={message.senderPhoto || '/default-avatar.png'} 
+              src={ 'default-avatar.png'} 
               alt="avatar" 
               width={32} 
               height={32} 

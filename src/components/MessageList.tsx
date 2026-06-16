@@ -12,7 +12,7 @@ export default function MessageList() {
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
-
+  
   useEffect(() => {
     const q = query(collection(db, "messages"), orderBy("createdAt", "asc"), limit(100));
     const unsubscribe = onSnapshot(q, (snapshot) => {

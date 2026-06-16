@@ -3,6 +3,7 @@ import { useState } from "react";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../lib/firebase";
 import { useAuth } from "../context/AuthContext";
+import toast from "react-hot-toast";
 
 export default function ProfileSetup() {
   const { user } = useAuth();
@@ -11,7 +12,7 @@ export default function ProfileSetup() {
 
   const saveProfile = async () => {
     if (!user || !name.trim()) {
-      alert("Пожалуйста, введите ваше имя");
+      toast.error("Пожалуйста, введите ваше имя");
       return;
     }
     
@@ -24,7 +25,7 @@ export default function ProfileSetup() {
       });
     } catch (error) {
       console.error("Ошибка при сохранении профиля:", error);
-      alert("Не удалось сохранить профиль");
+      toast.error("Не удалось сохранить профиль");
       setLoading(false);
     }
   };

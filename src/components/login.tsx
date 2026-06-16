@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import { signInWithGoogle, registerWithEmail, loginWithEmail } from "../lib/auth";
+import toast from "react-hot-toast";
+import { getAuthErrorMessage } from "../lib/auth-errors";
 
 export default function Login() {
   const [isLogin, setIsLogin] = useState(true);
@@ -17,15 +19,22 @@ export default function Login() {
         await registerWithEmail(email, password);
       }
     } catch (error) {
-      if (error instanceof Error) {
-        alert(error.message);
-      } else {
-        alert("Произошла неизвестная ошибка");
-      }
+      toast.error(getAuthErrorMessage(error));
     } finally {
       setSubmitting(false);
     }
   }; 
+
+  const handleGoogleSignIn = async () => {
+    setSubmitting(true);
+    try {
+      await signInWithGoogle();
+    } catch (error) {
+      toast.error(getAuthErrorMessage(error));
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-4">
@@ -61,7 +70,7 @@ export default function Login() {
         <div className="text-center mb-4 text-gray-400 text-sm">или</div>
 
         <button 
-          onClick={signInWithGoogle}
+          onClick={handleGoogleSignIn}
           disabled={submitting}
           className="w-full bg-black text-white py-3 rounded-xl mb-6 hover:bg-gray-800 transition disabled:bg-gray-400"
         >
