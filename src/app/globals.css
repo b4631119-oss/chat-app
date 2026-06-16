@@ -33,12 +33,12 @@
         }
         
         @media (max-width: 400px) {
-          .xs\\:inline {
+          .xs\:inline {
             display: inline;
           }
         }
         @media (min-width: 401px) {
-          .xs\\:inline {
+          .xs\:inline {
             display: none;
           }
         }
