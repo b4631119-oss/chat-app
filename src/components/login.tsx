@@ -44,25 +44,24 @@ export default function Login() {
         </h1>
 
         <input 
-          className="w-full border p-3 rounded-xl mb-3"
+          className="w-full border p-3 rounded-lg mb-3"
           placeholder="Email" 
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           disabled={submitting}
         />
         <input 
-          className="w-full border p-3 rounded-xl mb-6"
+          className="w-full border p-3 rounded-lg mb-6"
           type="password"
           placeholder="Пароль" 
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           disabled={submitting}
         />
-        
         <button 
           onClick={handleSubmit}
           disabled={submitting}
-          className="w-full bg-blue-600 text-white py-3 rounded-xl mb-4 font-bold hover:bg-blue-700 transition disabled:bg-gray-400"
+          className="w-full bg-blue-400 text-white py-3 rounded-xl mb-4 font-bold hover:bg-blue-700 transition disabled:bg-gray-400"
         >
           {submitting ? "..." : (isLogin ? "Войти" : "Зарегистрироваться")}
         </button>
