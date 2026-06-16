@@ -4,11 +4,12 @@ import { onAuthStateChanged, User } from "firebase/auth";
 import { doc, onSnapshot } from "firebase/firestore";
 import { auth } from "../lib/auth"; 
 import { db } from "../lib/firebase";
+import { Timestamp } from "firebase/firestore";
 
 export interface UserProfile {
   name: string;
   email: string;
-  createdAt: any;
+  createdAt: Timestamp;
 }
 
 const AuthContext = createContext<{ 
