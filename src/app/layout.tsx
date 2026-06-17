@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Dev-Chat",
-  description: "Простой чат на Next.js и Firebase",
+  description: "Простой чат",
 };
 
 export default function RootLayout({

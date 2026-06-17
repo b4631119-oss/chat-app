@@ -7,5 +7,4 @@ export interface Message {
   senderName: string;
   senderPhoto?: string; 
   createdAt: Timestamp;
-  status?: 'sent' | 'read';
 }

@@ -1,5 +1,5 @@
 import { db } from "./firebase";
-import { auth } from "./auth"; // Импортируем auth
+import { auth } from "./auth"; 
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 export const sendMessage = async (text: string, senderName: string, senderPhoto?: string) => {
