@@ -20,7 +20,7 @@ export default function Login() {
   };
 
   const validatePassword = (password: string) => {
-    return password.length >= 6;
+    return password.length >= 8;
   };
 
   const handleSubmit = async () => {
