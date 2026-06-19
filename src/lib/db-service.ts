@@ -1,8 +1,9 @@
 import { db } from "./firebase";
 import { auth } from "./auth"; 
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { ChatRoom } from "../types";
 
-export const sendMessage = async (text: string, senderName: string, senderPhoto?: string) => {
+export const sendMessage = async (text: string, senderName: string, chatId: ChatRoom, senderPhoto?: string) => {
   const user = auth.currentUser;
   
   if (!user) {
@@ -16,6 +17,7 @@ export const sendMessage = async (text: string, senderName: string, senderPhoto?
     senderId: user.uid,
     senderName: senderName,
     senderPhoto: senderPhoto || "",
+    chatId: chatId,
     status: 'sent',
     createdAt: serverTimestamp(),
   });

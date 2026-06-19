@@ -2,15 +2,20 @@
 import { useState, KeyboardEvent } from "react";
 import { sendMessage } from "../lib/db-service";
 import { useAuth } from "../context/AuthContext";
+import { ChatRoom } from "../types";
 
-export default function InputForm() {
+interface InputFormProps {
+  chatId: ChatRoom;
+}
+
+export default function InputForm({ chatId }: InputFormProps) {
   const [text, setText] = useState("");
   const { userProfile } = useAuth();
 
   const handleSend = async () => {
     const trimmed = text.trim();
     if (!trimmed || !userProfile) return;
-    await sendMessage(trimmed, userProfile.name);
+    await sendMessage(trimmed, userProfile.name, chatId);
     setText("");
   };
 

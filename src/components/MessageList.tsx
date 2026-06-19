@@ -1,11 +1,15 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
-import { collection, query, orderBy, onSnapshot, limit } from "firebase/firestore";
+import { collection, query, orderBy, onSnapshot, limit, where } from "firebase/firestore";
 import { db } from "../lib/firebase";
 import MessageItem from "./MessageItem";
-import { Message } from "../types";
+import { Message, ChatRoom } from "../types";
 
-export default function MessageList() {
+interface MessageListProps {
+  chatId: ChatRoom;
+}
+
+export default function MessageList({ chatId }: MessageListProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -14,7 +18,13 @@ export default function MessageList() {
   };
   
   useEffect(() => {
-    const q = query(collection(db, "messages"), orderBy("createdAt", "asc"), limit(100));
+    setMessages([]);
+    const q = query(
+      collection(db, "messages"),
+      orderBy("createdAt", "asc"),
+      where("chatId", "==", chatId),
+      limit(100)
+    );
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const msgs: Message[] = snapshot.docs.map((doc) => ({
         id: doc.id,
@@ -25,7 +35,7 @@ export default function MessageList() {
       console.error("Ошибка подписки на сообщения:", error);
     });
     return unsubscribe;
-  }, []);
+  }, [chatId]);
 
   useEffect(() => {
     scrollToBottom();

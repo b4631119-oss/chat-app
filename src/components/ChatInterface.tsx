@@ -5,10 +5,12 @@ import MessageList from "./MessageList";
 import InputForm from "./InputForm";
 import {  LogOut, MessageSquare, Menu, X } from "lucide-react";
 import { useState } from "react";
+import { ChatRoom, CHAT_ROOMS } from "../types";
 
 export default function ChatInterface() {
   const user = auth.currentUser;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [currentRoom, setCurrentRoom] = useState<ChatRoom>('general');
 
   return (
     <main className="flex flex-col h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
@@ -23,6 +25,22 @@ export default function ChatInterface() {
                 <span className="font-bold text-lg sm:text-xl md:text-2xl bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                   Dev-Chat
                 </span>
+              </div>
+              
+              <div className="flex items-center gap-1.5 sm:gap-2 ml-2 sm:ml-4">
+                {Object.entries(CHAT_ROOMS).map(([id, name]) => (
+                  <button
+                    key={id}
+                    onClick={() => setCurrentRoom(id as ChatRoom)}
+                    className={`px-3 py-1 rounded-full text-sm font-medium transition ${
+                      currentRoom === id
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    }`}
+                  >
+                    {name}
+                  </button>
+                ))}
               </div>
             </div>
 
@@ -92,13 +110,13 @@ export default function ChatInterface() {
         <div className="max-w-4xl mx-auto h-full">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 sm:w-64 md:w-96 h-48 sm:h-64 md:h-96 bg-gradient-to-r from-blue-200/20 to-purple-200/20 rounded-full blur-3xl pointer-events-none" />
           
-          <MessageList />
+          <MessageList chatId={currentRoom} />
         </div>
       </div>
       
       <div className="flex-shrink-0 bg-white/80 backdrop-blur-md border-t border-white/20 shadow-lg">
         <div className="px-2 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4 max-w-4xl mx-auto">
-          <InputForm />
+          <InputForm chatId={currentRoom} />
         </div>
       </div>
 
