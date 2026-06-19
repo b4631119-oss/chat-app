@@ -15,7 +15,6 @@ export default function ProfileSetup() {
       toast.error("Пожалуйста, введите ваше имя");
       return;
     }
-    
     setLoading(true);
     try {
       await setDoc(doc(db, "users", user.uid), {
