@@ -34,7 +34,7 @@ export default function Login() {
     }
     
     if (!validatePassword(password)) {
-      setPasswordError("Пароль должен быть не менее 6 символов");
+      setPasswordError("Пароль должен быть не менее 8 символов");
       toast.error("Пароль слишком короткий");
       return;
     }
